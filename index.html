@@ -702,8 +702,8 @@ document.getElementById('order-form').addEventListener('submit',function(e){
   document.body.appendChild(f);
   try{f.submit();}catch(err){}
 
-  /* Pixel Lead */
-  if(window.fbq){fbq('track','Lead',{value:total,currency:'VND'});}
+  /* Pixel Purchase (khớp camp tối ưu Purchase; đơn COD = ý định mua) */
+  if(window.fbq){fbq('track','Purchase',{value:total,currency:'VND'});}
 
   /* hiện cảm ơn */
   document.getElementById('order-form').style.display='none';
