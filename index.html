@@ -444,13 +444,11 @@ src="https://www.facebook.com/tr?id=1389341576259188&ev=PageView&noscript=1"/></
   <div class="container">
     <h2>Hôm nay chị được gì với mức giá nào</h2>
     <table class="vtable">
-      <tr class="row-prod"><td>Kem chống nắng Love The Sun SPF50+ PA+++</td><td class="amount">550.000đ</td></tr>
+      <tr class="row-prod"><td>Kem chống nắng Love The Sun SPF50+ PA+++ (40ml)</td><td class="amount">550.000đ</td></tr>
       <tr class="today"><td>Giá ưu đãi hôm nay</td><td class="amount">450.000đ</td></tr>
       <tr class="save"><td>Chị tiết kiệm</td><td class="amount">100.000đ</td></tr>
-      <tr class="combo"><td>Combo Ngày · Đêm (Love The Sun + Skin Night Cream trị nám)</td><td class="amount">948.000đ</td></tr>
-      <tr class="combo"><td>Bộ đầy đủ 3 sản phẩm (Sun + Night + GLU phục hồi)</td><td class="amount">1.458.000đ</td></tr>
     </table>
-    <p class="center" style="margin-top:16px;color:#7a6a4f;">Chị muốn vừa chống nắng vừa đẩy nám nhanh hơn thì chọn combo Ngày · Đêm để chăm da trọn vẹn cả ngày lẫn tối.</p>
+    <p class="center" style="margin-top:16px;color:#7a6a4f;">Một cây Love The Sun 40ml dùng đều mỗi ngày, bảo vệ da trọn cả mùa nắng.</p>
   </div>
 </section>
 
@@ -511,12 +509,9 @@ src="https://www.facebook.com/tr?id=1389341576259188&ev=PageView&noscript=1"/></
 
     <div class="form-card">
       <form id="order-form" novalidate>
-        <label for="product">Chị chọn gói</label>
-        <select id="product" name="product">
-          <option value="Love The Sun (lẻ)|450000" data-price="450000" selected>Love The Sun SPF50+ PA+++ · 450.000đ</option>
-          <option value="Combo Ngày-Đêm (Sun + Night)|948000" data-price="948000">Combo Ngày · Đêm (Sun + Skin Night Cream) · 948.000đ</option>
-          <option value="Bộ đầy đủ 3 sản phẩm|1458000" data-price="1458000">Bộ đầy đủ 3 sản phẩm · 1.458.000đ</option>
-        </select>
+        <label>Sản phẩm</label>
+        <input type="hidden" id="product" value="Kem chống nắng Love The Sun SPF50+ PA+++ (40ml)">
+        <div style="padding:13px 14px;border:2px solid #E5DDC9;border-radius:10px;background:#FFFDF7;font-weight:600;">Kem chống nắng Love The Sun SPF50+ PA+++ · 40ml · <span style="color:var(--red);">450.000đ</span></div>
 
         <label for="qty">Số lượng</label>
         <select id="qty" name="qty">
@@ -608,17 +603,16 @@ function tick(){
 setInterval(tick,1000); tick();
 
 /* ===== TÍNH TIỀN TỰ ĐỘNG ===== */
+var UNIT_PRICE=450000;
 var productEl=document.getElementById('product');
 var qtyEl=document.getElementById('qty');
 var totalEl=document.getElementById('total-val');
 function fmt(n){return n.toLocaleString('vi-VN')+'đ';}
 function calcTotal(){
-  var price=parseInt(productEl.options[productEl.selectedIndex].dataset.price,10);
   var qty=parseInt(qtyEl.value,10);
-  totalEl.textContent=fmt(price*qty);
-  return price*qty;
+  totalEl.textContent=fmt(UNIT_PRICE*qty);
+  return UNIT_PRICE*qty;
 }
-productEl.addEventListener('change',calcTotal);
 qtyEl.addEventListener('change',calcTotal);
 calcTotal();
 
@@ -664,7 +658,7 @@ document.getElementById('order-form').addEventListener('submit',function(e){
   var f=document.createElement('form');
   f.action=CONFIG.FORM_ACTION;f.method='POST';f.target='gform_target';f.style.display='none';
   function add(name,val){var i=document.createElement('input');i.name=name;i.value=val;f.appendChild(i);}
-  add(CONFIG.ENTRY.product,productEl.value.split('|')[0]);
+  add(CONFIG.ENTRY.product,productEl.value);
   add(CONFIG.ENTRY.qty,qtyEl.value);
   add(CONFIG.ENTRY.fullname,name);
   add(CONFIG.ENTRY.phone,phone);
