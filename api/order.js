@@ -21,12 +21,19 @@ module.exports = async (req, res) => {
     const address = ((body.address || '') + '').trim().slice(0, 500);
     const email = ((body.email || '') + '').trim().slice(0, 120);
     const product = ((body.product || 'Love The Sun') + '').trim().slice(0, 200);
+    const total = Math.max(0, parseInt(body.total, 10) || 0);
 
     const key = process.env.POS_API_KEY;
     if (!key) { res.status(200).json({ ok: false, error: 'no_key' }); return; }
 
+    // POS theo GIÁ TRÊN TRANG: gửi đơn giá (total/qty) qua variation_info.retail_price.
+    // Đổi giá / chạy KM chỉ cần sửa trên trang, POS tự khớp. Nếu thiếu total thì POS dùng giá gốc SP.
+    const unit = (total > 0) ? Math.round(total / qty) : 0;
+    const item = { variation_id: VARIATION_ID, quantity: qty };
+    if (unit > 0) { item.variation_info = { retail_price: unit }; }
+
     const order = {
-      items: [{ variation_id: VARIATION_ID, quantity: qty }],
+      items: [item],
       bill_full_name: name,
       bill_phone_number: phone,
       shipping_address: { full_name: name, phone_number: phone, address: address },
