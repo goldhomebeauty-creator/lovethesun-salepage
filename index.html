@@ -716,13 +716,9 @@ document.getElementById('order-form').addEventListener('submit',function(e){
   document.body.appendChild(f);
   try{f.submit();}catch(err){}
 
-  /* Pixel Purchase (khớp camp tối ưu Purchase; đơn COD = ý định mua) */
-  if(window.fbq){fbq('track','Purchase',{value:total,currency:'VND'});}
-
-  /* hiện cảm ơn */
-  document.getElementById('order-form').style.display='none';
-  document.getElementById('ok-msg').style.display='block';
-  document.getElementById('ok-msg').scrollIntoView({behavior:'smooth',block:'center'});
+  /* khóa nút chống đặt trùng + chuyển sang TRANG CẢM ƠN (Pixel Purchase bắn ở trang cảm ơn) */
+  try{ var _b=document.querySelector('.submit-btn'); if(_b){ _b.disabled=true; _b.textContent='ĐANG XỬ LÝ...'; } }catch(e){}
+  setTimeout(function(){ window.location.href='thankyou.html?total='+total; }, 800);
 });
 
 /* ===== POPUP FOMO (tên mẫu, xoay vòng) ===== */
