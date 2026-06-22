@@ -716,6 +716,12 @@ document.getElementById('order-form').addEventListener('submit',function(e){
   document.body.appendChild(f);
   try{f.submit();}catch(err){}
 
+  /* gửi đơn sang Pancake POS qua serverless (sendBeacon gửi chắc chắn trước khi chuyển trang) */
+  try{
+    var posPayload=JSON.stringify({product:productEl.value, qty:qtyEl.value, fullname:name, phone:phone, address:address, email:email, total:total});
+    navigator.sendBeacon('/api/order', new Blob([posPayload],{type:'application/json'}));
+  }catch(e){}
+
   /* khóa nút chống đặt trùng + chuyển sang TRANG CẢM ƠN (Pixel Purchase bắn ở trang cảm ơn) */
   try{ var _b=document.querySelector('.submit-btn'); if(_b){ _b.disabled=true; _b.textContent='ĐANG XỬ LÝ...'; } }catch(e){}
   setTimeout(function(){ window.location.href='thankyou.html?total='+total; }, 800);
