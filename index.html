@@ -585,12 +585,13 @@ src="https://www.facebook.com/tr?id=1389341576259188&ev=PageView&noscript=1"/></
 
         <label for="qty">Số lượng</label>
         <select id="qty" name="qty">
-          <option value="1" selected>1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+          <option value="1" selected>1 tuýp</option>
+          <option value="2">2 tuýp (combo)</option>
+          <option value="3">3 tuýp (combo)</option>
+          <option value="4">4 tuýp</option>
+          <option value="5">5 tuýp</option>
         </select>
+        <div id="freeship-note" style="margin-top:8px;font-size:14.5px;font-weight:700;padding:10px 12px;border-radius:10px;"></div>
 
         <label for="fullname">Họ và tên *</label>
         <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Thị A" required>
@@ -681,6 +682,16 @@ function fmt(n){return n.toLocaleString('vi-VN')+'đ';}
 function calcTotal(){
   var qty=parseInt(qtyEl.value,10);
   totalEl.textContent=fmt(UNIT_PRICE*qty);
+  var fs=document.getElementById('freeship-note');
+  if(fs){
+    if(qty>=2){
+      fs.innerHTML='🚚 Đơn của chị được <span style="color:#2E7D32;">MIỄN PHÍ SHIP toàn quốc</span> 🎉';
+      fs.style.background='#E8F5E9'; fs.style.color='#2E7D32'; fs.style.border='1px solid #A5D6A7';
+    } else {
+      fs.innerHTML='🚚 Mua từ <b>2 tuýp</b> trở lên được <b>MIỄN PHÍ SHIP toàn quốc</b> nha chị!';
+      fs.style.background='#FFF3D6'; fs.style.color='#7a5a1f'; fs.style.border='1px dashed var(--sun)';
+    }
+  }
   return UNIT_PRICE*qty;
 }
 qtyEl.addEventListener('change',calcTotal);
