@@ -3,7 +3,6 @@
   @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;700;800;900&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Be Vietnam Pro',sans-serif;}
   html,body{width:1080px;height:1080px;}
-  body{zoom:.6;}
   .stage{width:1080px;height:1080px;position:relative;overflow:hidden;
     background:radial-gradient(120% 90% at 50% 0%,#FFE9C7 0%,#FFF6E6 45%,#FFFDF8 100%);}
   /* nắng góc */
@@ -85,4 +84,12 @@
     </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.addEventListener('load',function(){setTimeout(function(){
+ html2canvas(document.querySelector('.stage'),{scale:2,useCORS:true,backgroundColor:null,logging:false}).then(function(c){
+  c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='banner-quatang.png';document.body.appendChild(a);a.click();},'image/png');
+ });
+},3000);});
+</script>
 </body></html>
