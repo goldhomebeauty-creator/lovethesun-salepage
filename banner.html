@@ -1,0 +1,51 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Be Vietnam Pro',sans-serif;}
+  html,body{width:900px;height:1200px;}
+  body{zoom:.55;}
+  .stage{width:900px;height:1200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(120% 80% at 50% 28%,#FBF7EE 0%,#F0E8D8 58%,#E6D9C4 100%);}
+  .book{position:relative;width:640px;height:892px;border-radius:8px 15px 15px 8px;
+    background:linear-gradient(135deg,#F8F1E0 0%,#F0E7D0 55%,#EAE0C8 100%);
+    box-shadow:28px 36px 74px rgba(92,68,32,.32);}
+  /* mép giấy bên phải (độ dày sách) */
+  .book::after{content:'';position:absolute;right:-10px;top:14px;bottom:14px;width:10px;border-radius:0 5px 5px 0;
+    background:repeating-linear-gradient(0deg,#EFE6D1 0,#EFE6D1 2px,#D6C9AC 3px);box-shadow:3px 0 8px rgba(0,0,0,.16);}
+  /* bóng gáy bên trái */
+  .spine{position:absolute;left:0;top:8px;bottom:8px;width:22px;border-radius:8px 0 0 8px;
+    background:linear-gradient(90deg,rgba(120,90,40,.18),rgba(120,90,40,0));}
+  /* viền vàng đôi */
+  .frame{position:absolute;inset:36px;border:2px solid #C6A152;border-radius:3px;}
+  .frame::before{content:'';position:absolute;inset:7px;border:1px solid #C6A152;border-radius:2px;}
+  .content{position:absolute;inset:36px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:78px 46px 0;}
+  .gold{color:#A9813B;text-shadow:0 1px 0 rgba(255,255,255,.65),0 -1px 1px rgba(120,90,30,.28);}
+  .title{font-family:'Playfair Display',serif;font-weight:900;font-size:92px;line-height:1.0;letter-spacing:1.5px;}
+  .rule{width:96px;height:2px;background:#C6A152;margin:40px auto 36px;}
+  .subtitle{font-family:'Playfair Display',serif;font-weight:700;font-size:42px;line-height:1.22;letter-spacing:1px;}
+  .author{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;font-size:46px;margin-top:auto;margin-bottom:14px;}
+  .pub{font-size:18px;letter-spacing:4px;color:#A9813B;font-weight:600;}
+</style></head>
+<body>
+<div class="stage">
+  <div class="book">
+    <div class="spine"></div>
+    <div class="frame"></div>
+    <div class="content">
+      <div class="title gold">LÀM<br>ĐẸP DA<br>TẠI NHÀ</div>
+      <div class="rule"></div>
+      <div class="subtitle gold">BÍ QUYẾT<br>CHỐNG LÃO HÓA<br>TỰ NHIÊN</div>
+      <div class="author gold">Lê Thu Giang</div>
+      <div class="pub">BA12DAYS</div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.addEventListener('load',function(){setTimeout(function(){
+ html2canvas(document.querySelector('.stage'),{scale:2,useCORS:true,backgroundColor:null,logging:false}).then(function(c){
+  c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ebook-cover.png';document.body.appendChild(a);a.click();},'image/png');
+ });
+},2500);});
+</script>
+</body></html>
