@@ -19,9 +19,11 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1389341576259188');
 fbq('track', 'PageView');
 (function(){
-  var t=parseInt((new URLSearchParams(location.search)).get('total'),10);
+  var p=new URLSearchParams(location.search);
+  var t=parseInt(p.get('total'),10);
   if(!t||isNaN(t)) t=450000;
-  fbq('track','Purchase',{value:t,currency:'VND'});
+  var eid=p.get('eid');
+  fbq('track','Purchase',{value:t,currency:'VND'}, eid?{eventID:eid}:undefined);
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none"
